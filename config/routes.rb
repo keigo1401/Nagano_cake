@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  
-  
+
+  devise_for :customers
+  devise_for :admins, controllers: {
+    sessions: 'admin/sessions'
+  }
+
   scope module: 'public' do
   root "homes#top"
   get 'homes/about' => 'homes#about'
@@ -18,6 +22,7 @@ Rails.application.routes.draw do
   post 'orders/confirm' => 'orders#confirm'
 
   resources :address, only:[:index, :edit, :create, :update, :destroy]
+
   end
 
 
@@ -29,11 +34,8 @@ Rails.application.routes.draw do
     get 'orders/:id' => 'orders#show'
     patch 'orders/:id' => 'orders#update'
     patch 'order_products/:id' => 'order_products#update'
+
   end
-
-
-  devise_for :admins
-  devise_for :customers
 
 
 end
