@@ -1,27 +1,23 @@
 <div class="container">
-  <h2>商品一覧</h2>
+  <h2>注文履歴一覧</h2>
   <table class="table table-hover table-inverse">
     <thead>
       <tr>
-        <th>商品ID</th>
-        <th>商品名</th>
-        <th>税抜価格</th>
-        <th>ジャンル</th>
-        <th colspan="3"></th>
-        <th>ステータス</th>
+        <th>購入日時</th>
+        <th>購入者</th>
+        <th>注文個数</th>
+        <th>注文ステータス</th>
       </tr>
     </thead>
     <tbody>
-      <% @admins_items.each do |p| %>
+      <% @admins_orders.each do |p| %>
       <tr>
-        <td><%= p.id %></td>
-        <td><%= link_to p.name, admin_items_path(p.id) %></td>
-        <td><%= p.price %></td>
-        <td><%= p.genres.name %></td>
-        <td><%= p.is_active %></td>
+        <td><%= link_to p.purchase_date.strftime("%Y-%m-%d %H:%M"), admin_orders_path(p.id), data: {"turbolinks" => false} %></td>
+        <td><%= p.customers.last_name %><%= p.customers.first_name %></td>
+        <td><%= p.order_details.quantity %></td>
+        <td><%= p.orders.status %></td>
       </tr>
       <% end %>
     </tbody>
   </table>
-  <%= paginate @admins_items, class: "paginate" %>
 </div>
