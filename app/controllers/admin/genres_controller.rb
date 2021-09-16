@@ -5,6 +5,14 @@ class Admin::GenresController < ApplicationController
   end
 
   def create
+    @genre = Genre.new(genre_params)
+    if @genre.seve
+      @admins_genres = Genre.all
+      redirect_to admin_genres_path
+    else
+      @admins_genres = Genre.all
+      render :index
+    end
   end
 
   def edit
