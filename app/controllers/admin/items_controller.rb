@@ -27,12 +27,11 @@ class Admin::ItemsController < ApplicationController
 
   def update
   end
-  
-  
-  def ensure_current_user
-    @user = User.find(params[:id])
-    if @user.id != current_user.id
-      redirect_to user_path(current_user.id)
-    end
+
+
+  private
+  def item_params
+    params.require(:item).permit(:image_id,:name,:introduction,:price)
   end
+
 end
