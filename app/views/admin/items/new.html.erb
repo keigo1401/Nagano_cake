@@ -4,10 +4,10 @@
   		<h2>商品新規登録</h2>
 
   		  <!--エラーメッセージ-->
-        <% if @genre.errors.any? %>
+        <% if @item.errors.any? %>
         <div id="error_explanation">
-          <h3><%= @genre.errors.count %> errors prohibited this obj from being saved:</h3>
-          <%= @genre.errors.full_messages.each do |message| %>
+          <h3><%= @item.errors.count %> errors prohibited this obj from being saved:</h3>
+          <%= @item.errors.full_messages.each do |message| %>
           <ul>
             <li><%= message %></li>
           </ul>
@@ -15,10 +15,10 @@
         </div>
         <% end %>
 
-  		<%= form_with model:@item, url: new_admin_item_path, local:true do |f| %>
+  		<%= form_with model:@item, url:'/admin/items', local:true do |f| %>
   		<div class="form-group">
-        <label for="item_image">商品画像</label>
-        <%= f.attachment_field :image_id, class:"form-control", id:"image" %>
+        <label for="image_id">商品画像</label>
+        <%= f.attachment_field :image, class:"form-control image_id", id:"image_id" %>
       </div>
   		<div class="form-group">
   		  <label for="item_name">商品名</label>
@@ -30,7 +30,7 @@
   		</div>
   		<div class="form-group">
   		  <label for="genre">ジャンル</label>
-  		  <%= f.select :genre_id, [["ケーキ", "1"], ["クッキー", "2"]], include_blank: "--選択して下さい--" %>
+  		  <%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: "--選択して下さい--" %>
   		</div>
   		<div class="form-group">
   		  <label for="price">税抜き価格</label>

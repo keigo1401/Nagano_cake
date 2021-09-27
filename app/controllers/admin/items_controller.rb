@@ -10,7 +10,7 @@ class Admin::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    if @item.save
+    if @item.save!
       redirect_to admin_item_path(@item.id), notice: 'You have created item successfully.'
     else
       render "new"
@@ -23,15 +23,25 @@ class Admin::ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
   end
 
   def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      flash[:notice] = "You have updated item successfully."
+      redirect_to admin_item_path(@item.id)
+    else
+      @item = Item.find(params[:id])
+      flash[:notice] = 'errors prohibited this obj from being saved:'
+      render "edit"
+    end
   end
 
 
   private
   def item_params
-    params.require(:item).permit(:image_id,:name,:introduction,:price)
+    params.require(:item).permit(:image,:name,:introduction,:price,:genre_id, :is_active)
   end
 
 end

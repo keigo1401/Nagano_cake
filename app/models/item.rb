@@ -1,11 +1,13 @@
 class Item < ApplicationRecord
 
-  belongs_to :genres
+  # enum is_active: {"販売中": TRUE, "販売停止中": FALSE }
+
+  belongs_to :genre
   has_many :cart_items
   has_many :order_details
-  attachment :item_image
+  attachment :image
 
-  validates :name, :image_id, :introduction, :price, presence: true
+  validates :name, :image, :introduction, :price, presence: true
   validates :is_active, inclusion: {in: [TRUE, FALSE]}
 
 end
