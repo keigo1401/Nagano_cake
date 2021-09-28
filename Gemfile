@@ -70,3 +70,4 @@ gem 'jquery-rails'
 gem 'kaminari'
 
 gem 'pry-rails'
+gem 'enum_help'
